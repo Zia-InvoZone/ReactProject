@@ -1,6 +1,7 @@
 import React from 'react';
-import logo from './assets/images/site-logo.png';
 import { Link } from 'react-router-dom';
+import logo from './assets/images/site-logo.png';
+
 function Header() {
   return (
     <div className="bg-black pt-5 pb-5 w-full fixed text-white bg-opacity-50 z-50">
@@ -17,7 +18,7 @@ function Header() {
           </Link>
         </div>
         <div className="w-1/4 float-left mt-5">
-          <a href="/login">login</a>
+          <Link to="/login">Login</Link> / <Link to="/signup">Sign up</Link>
         </div>
       </div>
     </div>
