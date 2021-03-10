@@ -7,6 +7,7 @@ function Step2({ dob, setDob, setUrl, bio, setBio }) {
   function storeImg(e) {
     const image = e.target.files[0];
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
