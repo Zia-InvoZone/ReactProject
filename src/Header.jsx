@@ -18,7 +18,7 @@ function Header() {
           </Link>
         </div>
         <div className="w-1/4 float-left mt-5">
-          <Link to="/login">Login</Link>/<Link to="/signup">Sign up</Link>
+          <Link to="/signin">Login</Link>/<Link to="/signup">Sign up</Link>
         </div>
       </div>
     </div>

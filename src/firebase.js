@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import "firebase/storage";
 
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyDTZnAJ7ztJi5Q0LPR-8WJ0rwb-2VBD5cU",
@@ -12,6 +13,6 @@ const firebaseApp = firebase.initializeApp({
 });
 
 const db = firebaseApp.firestore();
-
+const storage = firebase.storage();
 // eslint-disable-next-line import/prefer-default-export
-export { db };
+export { storage, db };
