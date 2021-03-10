@@ -15,4 +15,4 @@ const firebaseApp = firebase.initializeApp({
 const db = firebaseApp.firestore();
 const storage = firebase.storage();
 // eslint-disable-next-line import/prefer-default-export
-export { storage, db };
+export { storage, db, firebaseApp };

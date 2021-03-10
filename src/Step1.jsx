@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 
-function Step1({ name, setName, email, setEmail, pass, setPass }) {
+function Step1({
+  name,
+  setName,
+  email,
+  setEmail,
+  pass,
+  setPass,
+  emailError,
+  passError,
+}) {
   return (
     <div>
       <input
@@ -22,6 +31,7 @@ function Step1({ name, setName, email, setEmail, pass, setPass }) {
         onChange={(e) => setPass(e.target.value)}
         required
       />
+      <div className="block m-auto w-1/4 text-left mb-2">{passError}</div>
       <input
         className="block m-auto border p-2 w-1/4 mb-4"
         type="email"
@@ -31,6 +41,7 @@ function Step1({ name, setName, email, setEmail, pass, setPass }) {
         onChange={(e) => setEmail(e.target.value)}
         required
       />
+      <div className="block m-auto w-1/4 text-left mb-2">{emailError}</div>
     </div>
   );
 }

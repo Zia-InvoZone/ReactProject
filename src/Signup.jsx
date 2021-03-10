@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
-import { db } from "./firebase";
+import { db, firebaseApp } from "./firebase";
 
 function signup() {
   const [url, setUrl] = useState("");
@@ -15,25 +15,47 @@ function signup() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [nav, setNav] = useState(0);
+  const [emailError, setEmailError] = useState("");
+  const [passError, setPassError] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
     if (nav === 0) {
       setNav(nav + 1);
     } else {
-      const data = {
-        Name: name,
-        Pass: pass,
-        Email: email,
-        Image: url,
-        Dob: dob,
-        Bio: bio,
-      };
-      db.collection("Users")
-        .add(data)
+      firebaseApp
+        .auth()
+        .createUserWithEmailAndPassword(email, pass)
         .then(() => {
-          // eslint-disable-next-line no-alert
-          alert("Your information saved successfully!");
+          const data = {
+            Name: name,
+            Pass: pass,
+            Email: email,
+            Image: url,
+            Dob: dob,
+            Bio: bio,
+          };
+          db.collection("Users")
+            .add(data)
+            .then(() => {
+              // eslint-disable-next-line no-alert
+              // alert("Your information saved successfully!");
+              window.location.href = "/account";
+            });
+        })
+        .catch((err) => {
+          // eslint-disable-next-line default-case
+          switch (err.code) {
+            case "auth/email-already-in-use":
+            case "auth/invalid-email":
+              setEmailError(err.message);
+              setNav(0);
+              break;
+            case "auth/weak-password":
+              setPassError(err.message);
+              setNav(0);
+              break;
+          }
         });
     }
   }
@@ -51,6 +73,8 @@ function signup() {
               setEmail={setEmail}
               pass={pass}
               setPass={setPass}
+              emailError={emailError}
+              passError={passError}
             />
           )}
           {nav === 1 && (
