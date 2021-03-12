@@ -1,6 +1,6 @@
 /* eslint-disable no-unreachable */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { firebaseApp } from "./firebase";
 
 function SignIn(handleAuth) {
@@ -8,6 +8,7 @@ function SignIn(handleAuth) {
   const [pass, setPass] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
+  const history = useHistory();
 
   const login = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ function SignIn(handleAuth) {
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then(() => {
-        window.location.href = "/account";
+        history.push("/account");
         handleAuth();
       })
       .catch((err) => {

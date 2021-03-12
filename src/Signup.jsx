@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import { db, firebaseApp } from "./firebase";
@@ -17,6 +18,7 @@ function signup() {
   const [nav, setNav] = useState(0);
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
+  const history = useHistory();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -40,7 +42,7 @@ function signup() {
             .then(() => {
               // eslint-disable-next-line no-alert
               // alert("Your information saved successfully!");
-              window.location.href = "/account";
+              history.push("/account");
             });
         })
         .catch((err) => {

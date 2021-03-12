@@ -8,6 +8,8 @@ import About from "./About";
 import Singup from "./Signup";
 import Signin from "./Signin";
 import Account from "./Account";
+import ResetPass from "./ResetPass";
+import EnterPass from "./EnterPass";
 import "./App.css";
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
           <Route path="/about" component={About} exact />
           <Route path="/signup" component={Singup} exact />
           <Route path="/account" component={Account} exact />
+          <Route path="/resetpass" component={ResetPass} exact />
+          <Route path="/enterpass" component={EnterPass} exact />
           <Route
             path="/signin"
             component={() => {
