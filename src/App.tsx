@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+// @ts-ignore
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { firebaseApp } from "./firebase";
+import { signIn, signOut } from "./actions";
 import Header from "./Header";
 import Home from "./Home";
 import About from "./About";
@@ -10,25 +13,25 @@ import Signin from "./Signin";
 import Account from "./Account";
 import ResetPass from "./ResetPass";
 import EnterPass from "./EnterPass";
+import cart from "./cart";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState("");
-
-  const handleAuth = () => {
+  const dispatch = useDispatch();
+  const handleAuth = (): void => {
     firebaseApp.auth().onAuthStateChanged((userr) => {
       if (userr) {
-        setUser(userr);
+        dispatch(signIn(userr));
       } else {
-        setUser("");
+        dispatch(signOut());
       }
     });
   };
 
-  function logout() {
+  const logout = (): void => {
     firebaseApp.auth().signOut();
     window.location.href = "/";
-  }
+  };
 
   useEffect(() => {
     handleAuth();
@@ -37,7 +40,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header user={user} logout={logout} />
+        <Header logout={logout} />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/about" component={About} exact />
@@ -45,6 +48,7 @@ function App() {
           <Route path="/account" component={Account} exact />
           <Route path="/resetpass" component={ResetPass} exact />
           <Route path="/enterpass" component={EnterPass} exact />
+          <Route path="/cart" component={cart} exact />
           <Route
             path="/signin"
             component={() => {

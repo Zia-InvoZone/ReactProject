@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { firebaseApp } from "./firebase";
 
-function SignIn(handleAuth) {
+const SignIn = ({ handleAuth }: { handleAuth(): void }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const history = useHistory();
 
-  const login = (e) => {
+  const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEmailError("");
     setPassError("");
@@ -78,6 +78,6 @@ function SignIn(handleAuth) {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;

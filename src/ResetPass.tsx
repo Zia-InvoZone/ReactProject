@@ -5,7 +5,7 @@ import { firebaseApp } from "./firebase";
 function ResetPass() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const handleReset = (e) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 

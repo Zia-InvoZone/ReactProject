@@ -20,7 +20,7 @@ function signup() {
   const [passError, setPassError] = useState("");
   const history = useHistory();
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (nav === 0) {
       setNav(nav + 1);

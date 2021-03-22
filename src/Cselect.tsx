@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import Select from "react-select";
 
 function Cselect() {

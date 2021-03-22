@@ -2,33 +2,47 @@
 import React, { useState } from "react";
 import { storage } from "./firebase";
 
-function Step2({ dob, setDob, setUrl, bio, setBio }) {
+function Step2({
+  dob,
+  setDob,
+  setUrl,
+  bio,
+  setBio,
+}: {
+  dob: string;
+  setDob: Function;
+  setUrl: Function;
+  bio: string;
+  setBio: Function;
+}) {
   const [progress, setProgress] = useState(0);
-  function storeImg(e) {
-    const image = e.target.files[0];
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+  function storeImg(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files != null) {
+      const image = e.target.files[0];
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progresss = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progresss);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL()
-          .then((urls) => {
-            setUrl(urls);
-          });
-      }
-    );
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progresss = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progresss);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(image.name)
+            .getDownloadURL()
+            .then((urls) => {
+              setUrl(urls);
+            });
+        }
+      );
+    }
   }
   return (
     <div>
@@ -53,7 +67,6 @@ function Step2({ dob, setDob, setUrl, bio, setBio }) {
 
       <textarea
         className="block m-auto border p-2 w-1/4 mb-4"
-        type="textarea"
         name="bio"
         value={bio}
         placeholder="BIO"

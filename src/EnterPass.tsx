@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// @ts-ignore
 import { useLocation, useHistory } from "react-router-dom";
 import { firebaseApp } from "./firebase";
 
@@ -9,19 +10,21 @@ function EnterPass() {
   const code = new URLSearchParams(search).get("oobCode");
   const history = useHistory();
 
-  function ResetPass(e) {
+  function ResetPass(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr("");
-    firebaseApp
-      .auth()
-      .confirmPasswordReset(code, pass)
-      .then(() => {
-        alert("Password is changed.");
-        history.push("/signin");
-      })
-      .catch((errr) => {
-        setErr(errr.message);
-      });
+    if (code != null) {
+      firebaseApp
+        .auth()
+        .confirmPasswordReset(code, pass)
+        .then(() => {
+          alert("Password is changed.");
+          history.push("/signin");
+        })
+        .catch((errr) => {
+          setErr(errr.message);
+        });
+    }
   }
 
   return (

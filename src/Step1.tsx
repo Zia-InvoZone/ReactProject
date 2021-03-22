@@ -10,6 +10,15 @@ function Step1({
   setPass,
   emailError,
   passError,
+}: {
+  name: string;
+  setName: Function;
+  email: string;
+  setEmail: Function;
+  pass: string;
+  setPass: Function;
+  emailError: string;
+  passError: string;
 }) {
   return (
     <div>
